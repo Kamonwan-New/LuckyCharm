@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>สุ่มไพ่ทำนายดวง</title>
+  <style>
+    body {
+      font-family: 'Prompt', sans-serif;
+      background: #f8f4ff;
+      color: #3b0066;
+      text-align: center;
+      padding: 2rem;
+    }
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+    #card {
+      font-size: 1.5rem;
+      margin: 2rem auto;
+      padding: 1rem;
+      background: #fff0fb;
+      border: 2px dashed #cc66cc;
+      display: none;
+      border-radius: 10px;
+      white-space: pre-line;
+      max-width: 80%;
+    }
+    button {
+      display: block;
+      margin: 1.5rem auto 0;
+      padding: 0.8rem 1.5rem;
+      font-size: 1rem;
+      background-color: #ba68c8;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #9c27b0;
+    }
+    a {
+      display: block;
+      margin-top: 2rem;
+      text-decoration: none;
+      color: #8e44ad;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <h1>🔮 ระบบสุ่มไพ่พร้อมฝากคำถาม</h1>
+  <p>คลิกปุ่มด้านล่างเพื่อสุ่มไพ่ และหากต้องการถามคำถามเจาะลึก สามารถฝากคำถามได้ผ่านแบบฟอร์ม</p>
+
+  <div>
+    <button onclick="drawCard()">✨ สุ่มไพ่</button>
+  </div>
+
+  <div id="card"></div>
+
+  <a href="https://docs.google.com/forms/d/e/1FAIpQLSe8Zeb-sADkPDYuQhpgQRGwsmbcqpKEQyaoHQ4fL7M7ZOe65w/viewform?usp=sharing" target="_blank">📝 ฝากคำถามดูดวงเจาะลึกที่นี่</a>
+
+  <script>
+    const cards = [
+      "The Fool - การเริ่มต้นใหม่ โอกาส",
+      "The Magician - พลังในการสร้างสรรค์",
+      "The High Priestess - สัญชาตญาณ ความลับ",
+      "The Empress - ความรัก ความอุดมสมบูรณ์",
+      "The Emperor - ความมั่นคง การควบคุม",
+      "The Hierophant - คำแนะนำ ความเชื่อ",
+      "The Lovers - ความสัมพันธ์ การตัดสินใจ",
+      "The Chariot - ความมุ่งมั่น ความสำเร็จ",
+      "Strength - ความกล้าหาญ การควบคุมอารมณ์",
+      "The Hermit - การค้นหาตัวเอง",
+      "Wheel of Fortune - การเปลี่ยนแปลง โชคชะตา",
+      "Justice - ความยุติธรรม การตัดสินใจ",
+      "The Hanged Man - การเสียสละ มุมมองใหม่",
+      "Death - การสิ้นสุด การเปลี่ยนแปลง",
+      "Temperance - ความสมดุล ความอดทน",
+      "The Devil - ข้อจำกัด ความหลงใหล",
+      "The Tower - การเปลี่ยนแปลงกะทันหัน",
+      "The Star - ความหวัง แรงบันดาลใจ",
+      "The Moon - ความลังเล ความฝัน",
+      "The Sun - ความสุข ความสำเร็จ",
+      "Judgement - การปลดปล่อย การตัดสิน",
+      "The World - ความสำเร็จ ความสมบูรณ์"
+    ];
+
+    function drawCard() {
+      const randomIndex = Math.floor(Math.random() * cards.length);
+      const cardElement = document.getElementById('card');
+      cardElement.textContent = cards[randomIndex];
+      cardElement.style.display = 'block';
+    }
+  </script>
+</body>
+</html>
