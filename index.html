@@ -138,7 +138,7 @@
       answerDiv.innerHTML = "⏳ กำลังค้นหาคำตอบ...";
       answerDiv.style.display = 'block';
       answerDiv.innerHTML = ${encodeURIComponent(code)};
-      fetch(`https://script.google.com/macros/s/AKfycbx80XiQv5tkIcLVa_tcbZJm8hvDo5hwCjDb5YVCCIGcviv1j35KavUTpnLQCLnKY3CwBQ/exec?code=${encodeURIComponent(code)}`)
+      fetch(`https://script.google.com/macros/s/AKfycbzmdjjIAE1pxrQjAq7J4jdR8v2uFPCYb35RUQt2Lcz8G5N7xxfkXHSVQ8ewBbnfTMb3kQ/exec?code=${encodeURIComponent(code)}`)
         .then(res => res.text())
         .then(data => {
           if (data.includes("คำทำนาย")) {
