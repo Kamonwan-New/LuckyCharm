@@ -138,7 +138,7 @@
       fetch(`https://script.google.com/macros/s/AKfycbx80XiQv5tkIcLVa_tcbZJm8hvDo5hwCjDb5YVCCIGcviv1j35KavUTpnLQCLnKY3CwBQ/exec?code=${encodeURIComponent(code)}`)
         .then(res => res.text())
         .then(data => {
-          answerDiv.innerHTML = data || "⏳ รอคิวตอบคำถาม กรุณารอก่อนนะคะ";
+          answerDiv.innerHTML = data || "คำถามของคุณอยู่ในคิวการทำนายแล้วนะคะ 💌 กรุณารอสักครู่";
         })
         .catch(err => {
           answerDiv.innerHTML = "❌ เกิดข้อผิดพลาด กรุณาลองใหม่อีกครั้ง";
