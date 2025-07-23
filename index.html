@@ -127,34 +127,40 @@
     }
 
     function checkAnswer() {
-      const code = document.getElementById('code').value.trim();
-      const answerDiv = document.getElementById('answer');
-      if (!code) {
-        answerDiv.innerHTML = "⚠️ กรุณากรอกรหัสก่อน";
-        answerDiv.style.display = 'block';
-        return;
+  const code = document.getElementById('code').value.trim();
+  const answerDiv = document.getElementById('answer');
+  document.getElementById('card').style.display = 'none';
+
+  if (!code) {
+    answerDiv.innerHTML = "⚠️ กรุณากรอกรหัสก่อน";
+    answerDiv.style.display = 'block';
+    return;
+  }
+
+  answerDiv.innerHTML = "⏳ กำลังค้นหาคำตอบ...";
+  answerDiv.style.display = 'block';
+
+  fetch(`https://script.google.com/macros/s/AKfycbzmdjjIAE1pxrQjAq7J4jdR8v2uFPCYb35RUQt2Lcz8G5N7xxfkXHSVQ8ewBbnfTMb3kQ/exec?code=${encodeURIComponent(code)}`, {
+    method: 'GET',
+    mode: 'cors'
+  })
+    .then(res => res.text())
+    .then(data => {
+      if (data.includes("คำทำนาย")) {
+        answerDiv.innerHTML = data;
+      } else if (data.includes("คิวการทำนาย")) {
+        answerDiv.innerHTML = "📬 " + data;
+      } else if (data.includes("ไม่พบรหัส")) {
+        answerDiv.innerHTML = "❌ ไม่พบรหัสนี้ในระบบ กรุณาตรวจสอบอีกครั้ง";
+      } else {
+        answerDiv.innerHTML = "ℹ️ " + data;
       }
-      
-      answerDiv.innerHTML = "⏳ กำลังค้นหาคำตอบ...";
-      answerDiv.style.display = 'block';
-      fetch(`https://script.google.com/macros/s/AKfycbzmdjjIAE1pxrQjAq7J4jdR8v2uFPCYb35RUQt2Lcz8G5N7xxfkXHSVQ8ewBbnfTMb3kQ/exec?code=${encodeURIComponent(code)}`)
-        .then(res => res.text())
-        .then(data => {
-          if (data.includes("คำทำนาย")) {
-            answerDiv.innerHTML = data;
-          } else if (data.includes("คิวการทำนาย")) {
-            answerDiv.innerHTML = "📬 " + data;
-          } else if (data.includes("ไม่พบรหัส")) {
-            answerDiv.innerHTML = "❌ ไม่พบรหัสนี้ในระบบ กรุณาตรวจสอบอีกครั้ง";
-          } else {
-            answerDiv.innerHTML = "ℹ️ " + data;
-          }
-        })
-        .catch(err => {
-          answerDiv.innerHTML = "error " + err;
-          answerDiv.innerHTML = "❌ เกิดข้อผิดพลาด กรุณาลองใหม่อีกครั้ง";
-        });
-    }
+    })
+    .catch(err => {
+      answerDiv.innerHTML = "❌ เกิดข้อผิดพลาด กรุณาลองใหม่อีกครั้ง";
+    });
+}
+
   </script>
 </body>
 </html>
