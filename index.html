@@ -137,7 +137,7 @@
       
       answerDiv.innerHTML = "⏳ กำลังค้นหาคำตอบ...";
       answerDiv.style.display = 'block';
-
+      answerDiv.innerHTML = ${encodeURIComponent(code)};
       fetch(`https://script.google.com/macros/s/AKfycbx80XiQv5tkIcLVa_tcbZJm8hvDo5hwCjDb5YVCCIGcviv1j35KavUTpnLQCLnKY3CwBQ/exec?code=${encodeURIComponent(code)}`)
         .then(res => res.text())
         .then(data => {
