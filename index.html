@@ -68,6 +68,9 @@
       background-color: #e1bee7;
       border-radius: 10px;
       display: none;
+      max-width: 90%;
+      margin-left: auto;
+      margin-right: auto;
     }
   </style>
 </head>
@@ -134,11 +137,18 @@
       answerDiv.innerHTML = "⏳ กำลังค้นหาคำตอบ...";
       answerDiv.style.display = 'block';
 
-      // เรียก Apps Script
       fetch(`https://script.google.com/macros/s/AKfycbx80XiQv5tkIcLVa_tcbZJm8hvDo5hwCjDb5YVCCIGcviv1j35KavUTpnLQCLnKY3CwBQ/exec?code=${encodeURIComponent(code)}`)
         .then(res => res.text())
         .then(data => {
-          answerDiv.innerHTML = data || "คำถามของคุณอยู่ในคิวการทำนายแล้วนะคะ 💌 กรุณารอสักครู่";
+          if (data.includes("คำทำนาย")) {
+            answerDiv.innerHTML = data;
+          } else if (data.includes("คิวการทำนาย")) {
+            answerDiv.innerHTML = "📬 " + data;
+          } else if (data.includes("ไม่พบรหัส")) {
+            answerDiv.innerHTML = "❌ ไม่พบรหัสนี้ในระบบ กรุณาตรวจสอบอีกครั้ง";
+          } else {
+            answerDiv.innerHTML = "ℹ️ " + data;
+          }
         })
         .catch(err => {
           answerDiv.innerHTML = "❌ เกิดข้อผิดพลาด กรุณาลองใหม่อีกครั้ง";
