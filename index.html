@@ -11,14 +11,20 @@
       color: #3b0066;
       text-align: center;
       padding: 2rem;
+      max-width: 768px;
+      margin: auto;
     }
     h1 {
       font-size: 2rem;
       margin-bottom: 1rem;
     }
+    p {
+      font-size: 1rem;
+      margin-bottom: 1.5rem;
+    }
     #card {
-      font-size: 1.5rem;
-      margin: 2rem auto;
+      font-size: 1.2rem;
+      margin: 1.5rem auto;
       padding: 1rem;
       background: #fff0fb;
       border: 2px dashed #cc66cc;
@@ -29,7 +35,7 @@
     }
     button {
       display: block;
-      margin: 1.5rem auto 0;
+      margin: 1rem auto;
       padding: 0.8rem 1.5rem;
       font-size: 1rem;
       background-color: #ba68c8;
@@ -48,19 +54,41 @@
       color: #8e44ad;
       font-weight: bold;
     }
+    input {
+      padding: 0.6rem;
+      width: 80%;
+      max-width: 300px;
+      margin: 0.5rem auto;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+    #answer {
+      margin-top: 1rem;
+      padding: 1rem;
+      background-color: #e1bee7;
+      border-radius: 10px;
+      display: none;
+    }
   </style>
 </head>
 <body>
   <h1>🔮 ระบบสุ่มไพ่พร้อมฝากคำถาม</h1>
   <p>คลิกปุ่มด้านล่างเพื่อสุ่มไพ่ และหากต้องการถามคำถามเจาะลึก สามารถฝากคำถามได้ผ่านแบบฟอร์ม</p>
 
-  <div>
-    <button onclick="drawCard()">✨ สุ่มไพ่</button>
-  </div>
-
+  <button onclick="drawCard()">✨ สุ่มไพ่</button>
   <div id="card"></div>
 
-  <a href="https://docs.google.com/forms/d/e/1FAIpQLSe8Zeb-sADkPDYuQhpgQRGwsmbcqpKEQyaoHQ4fL7M7ZOe65w/viewform?usp=sharing" target="_blank">📝 ฝากคำถามดูดวงเจาะลึกที่นี่</a>
+  <a href="https://docs.google.com/forms/d/e/1FAIpQLSe8Zeb-sADkPDYuQhpgQRGwsmbcqpKEQyaoHQ4fL7M7ZOe65w/viewform?usp=sharing" target="_blank">
+    📝 ฝากคำถามดูดวงเจาะลึกที่นี่
+  </a>
+
+  <hr style="margin: 2rem auto; width: 50%; border: 1px dashed #ccc;" />
+
+  <h2>🔐 ดูคำตอบของคุณ</h2>
+  <input type="text" id="code" placeholder="ใส่รหัสของคุณ เช่น moon5678" />
+  <button onclick="checkAnswer()">📩 ดูคำตอบ</button>
+
+  <div id="answer"></div>
 
   <script>
     const cards = [
@@ -93,6 +121,28 @@
       const cardElement = document.getElementById('card');
       cardElement.textContent = cards[randomIndex];
       cardElement.style.display = 'block';
+    }
+
+    function checkAnswer() {
+      const code = document.getElementById('code').value.trim();
+      const answerDiv = document.getElementById('answer');
+      if (!code) {
+        answerDiv.innerHTML = "⚠️ กรุณากรอกรหัสก่อน";
+        answerDiv.style.display = 'block';
+        return;
+      }
+      answerDiv.innerHTML = "⏳ กำลังค้นหาคำตอบ...";
+      answerDiv.style.display = 'block';
+
+      // เรียก Apps Script
+      fetch(`https://script.google.com/macros/s/AKfycbx80XiQv5tkIcLVa_tcbZJm8hvDo5hwCjDb5YVCCIGcviv1j35KavUTpnLQCLnKY3CwBQ/exec?code=${encodeURIComponent(code)}`)
+        .then(res => res.text())
+        .then(data => {
+          answerDiv.innerHTML = data || "⏳ รอคิวตอบคำถาม กรุณารอก่อนนะคะ";
+        })
+        .catch(err => {
+          answerDiv.innerHTML = "❌ เกิดข้อผิดพลาด กรุณาลองใหม่อีกครั้ง";
+        });
     }
   </script>
 </body>
